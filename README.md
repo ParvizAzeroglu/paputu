@@ -1,6 +1,7 @@
 # PAPUTU
 
-[Installation](#installation) - [Guide](#guide) - [Known Issues](#known-issues)  - [License](#license)
+[Installation](#installation) - [Guide](#guide) - [Known Issues](#known-issues)  - [License](LICENSE)
+
 
 <p align="center">
   <br>
@@ -80,5 +81,3 @@ If you want to customize the 404 page, edit the file located at `framework/404.h
 
 - External CSS, JavaScript, and other assets cannot be used. You can only work with plain HTML.
 - The POST method is not supported.
-
-## Licanse
