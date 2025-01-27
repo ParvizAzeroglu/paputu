@@ -1,4 +1,6 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+from urllib.parse import parse_qs
 
 '''
     Metreyle is goreller e ? en yaxsisi paputudu
@@ -15,6 +17,11 @@ class Paputu(BaseHTTPRequestHandler):
         cls.routes[path] = callback
         print(f"Route {path} added.")
 
+    @classmethod
+    def post(cls, path, callback):
+        cls.routes[path] = callback
+        print(f"Route {path} added.")
+
 
     def do_GET(self):
         try:
@@ -27,6 +34,22 @@ class Paputu(BaseHTTPRequestHandler):
         except Exception as e:
             print(f"An error occurred while processing the request: {e}")
 
+    def do_POST(self):
+        try:
+            handler = self.routes.get(self.path)
+
+            if handler:
+                # Parse application/x-www-form-urlencoded enctype 
+                content_length = int(self.headers["Content-Length"])
+                post_data = self.rfile.read(content_length)
+                
+                data = parse_qs(post_data.decode("utf-8"))
+
+                handler(self, data)
+            else:
+                print("No handler found for the requested path. Please check the route.")
+        except Exception as e:
+            print(f"Error occurred in do_POST: {e}")
     
     def serve_static_page(self, filepath: str, response_code=200) -> None:
         '''
